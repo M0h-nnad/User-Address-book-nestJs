@@ -41,6 +41,6 @@ export class address {
   userId: ObjectId;
 }
 
-export type taskDocument = HydratedDocument<address>;
+export type addressDocument = HydratedDocument<address>;
 
 export const addressSchema = SchemaFactory.createForClass(address);
