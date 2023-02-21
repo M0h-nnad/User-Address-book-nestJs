@@ -1,4 +1,4 @@
-import { Controller, Delete, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Put, UseGuards } from '@nestjs/common';
 import { Payload } from 'src/auth/decorator';
 import { JwtGuard } from 'src/auth/guard';
 import { UpdateUserDto } from './dto';
@@ -11,7 +11,7 @@ export class UserController {
   @UseGuards(JwtGuard)
   updateUser(
     @Payload() payload: { id: string; email: string },
-    UpdateUserDto: UpdateUserDto,
+    @Body() UpdateUserDto: UpdateUserDto,
   ) {
     const user = this.userService.update(payload.id, UpdateUserDto);
 
