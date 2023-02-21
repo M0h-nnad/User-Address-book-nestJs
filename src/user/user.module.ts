@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt/dist';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AddressModule } from 'src/address/address.module';
 import { User, userSchema } from 'src/schema';

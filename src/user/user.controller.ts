@@ -11,9 +11,9 @@ export class UserController {
   @UseGuards(JwtGuard)
   updateUser(
     @Payload() payload: { id: string; email: string },
-    @Body() UpdateUserDto: UpdateUserDto,
+    @Body() updateUserDto: UpdateUserDto,
   ) {
-    const user = this.userService.update(payload.id, UpdateUserDto);
+    const user = this.userService.update(payload.id, updateUserDto);
 
     return user;
   }
