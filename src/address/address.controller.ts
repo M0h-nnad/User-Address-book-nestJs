@@ -25,7 +25,10 @@ export class AddressController {
   }
 
   @Get(':id')
-  getAddress(@Param('id') id: string, payload: { id: string; email: string }) {
+  getAddress(
+    @Param('id') id: string,
+    @Payload() payload: { id: string; email: string },
+  ) {
     return this.addressService.get(id, payload.id);
   }
 
@@ -51,6 +54,6 @@ export class AddressController {
     @Param('id') id: string,
     @Payload() payload: { id: string; email: string },
   ) {
-    this.addressService.delete(id, payload.id);
+    return this.addressService.delete(id, payload.id);
   }
 }

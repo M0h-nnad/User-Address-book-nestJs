@@ -20,7 +20,7 @@ export class AuthService {
     try {
       const existingUser = await this.userService.create(CreateUserDto);
 
-      const token = this.jwtService.sign({
+      const token = await this.jwtService.sign({
         id: existingUser._id,
         email: existingUser.email,
       });
@@ -31,6 +31,8 @@ export class AuthService {
         if (e.code === 11000) {
           throw new BadRequestException('User Already ');
         }
+      } else {
+        throw e;
       }
     }
   }

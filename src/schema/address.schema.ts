@@ -5,12 +5,16 @@ import { HydratedDocument, Types } from 'mongoose';
   id: true,
   virtuals: true,
   timestamps: true,
+  versionKey: false,
   toJSON: {
+    virtuals: true,
     transform: (doc, ret) => {
       delete ret._id;
+      delete ret.userId;
       return ret;
     },
   },
+  
 })
 export class address {
   @Prop({ required: true })
