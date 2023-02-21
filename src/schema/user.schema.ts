@@ -1,6 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-
+import * as argon from 'argon2';
 @Schema({
   id: true,
   virtuals: true,
@@ -31,3 +31,15 @@ export class User {
 export type userDocument = HydratedDocument<User>;
 
 export const userSchema = SchemaFactory.createForClass(User);
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+  try {
+    const password = await argon.hash(user.password);
+
+    user.password = password;
+    next();
+  } catch (e) {
+    next(e);
+  }
+});

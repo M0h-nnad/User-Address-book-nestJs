@@ -15,7 +15,7 @@ export class AddressService {
     createAddressDto: CreateAddressDto,
     userId: string,
   ): Promise<addressDocument> {
-    const existingAddress = await new this.addressModel({
+    const existingAddress = new this.addressModel({
       ...createAddressDto,
       userId,
     });
@@ -45,7 +45,7 @@ export class AddressService {
     return existingAddresses;
   }
 
-  async getAddress(id: string): Promise<addressDocument> {
+  async get(id: string): Promise<addressDocument> {
     const existingAddress = await this.addressModel.findById(id);
 
     if (!existingAddress)
@@ -54,12 +54,18 @@ export class AddressService {
     return existingAddress;
   }
 
-  async deleteAddress(id: string): Promise<addressDocument> {
+  async delete(id: string): Promise<addressDocument> {
     const existingAddress = await this.addressModel.findByIdAndDelete(id);
 
     if (!existingAddress)
       throw new NotFoundException(`Address #${id} Not Found`);
 
     return existingAddress;
+  }
+
+  async deleteAddressesRelatedToUser(userId: string) {
+    const existingAddresses = await this.addressModel.deleteMany({ userId });
+
+    return existingAddresses;
   }
 }
