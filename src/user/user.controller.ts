@@ -5,10 +5,10 @@ import { UpdateUserDto } from './dto';
 import { UserService } from './user.service';
 
 @Controller('user')
+@UseGuards(JwtGuard)
 export class UserController {
   constructor(private userService: UserService) {}
   @Put('')
-  @UseGuards(JwtGuard)
   updateUser(
     @Payload() payload: { id: string; email: string },
     @Body() updateUserDto: UpdateUserDto,
@@ -19,7 +19,6 @@ export class UserController {
   }
 
   @Delete('')
-  @UseGuards(JwtGuard)
   deleteUser(@Payload() payload: { id: string; email: string }) {
     const user = this.userService.delete(payload.id);
 
