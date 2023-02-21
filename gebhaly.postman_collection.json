@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\":\"Mohannad\",\r\n    \"lastName\":\"Abdellah\",\r\n    \"email\":\"admin@admin.com\",\r\n    \"password\":\"No@12345\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -46,7 +46,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"admin1@admin.com\",\r\n    \"password\":\"No@12345\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -114,7 +114,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "63f4bae425d649c161fee650"
+									"value": ""
 								}
 							]
 						}
@@ -150,7 +150,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "63f4bae425d649c161fee650"
+									"value": ""
 								}
 							]
 						}
@@ -206,7 +206,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "63f4bf9cca60fc3dabb090fd"
+									"value": ""
 								}
 							]
 						}
@@ -245,7 +245,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\":\"updated\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
