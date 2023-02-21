@@ -11,7 +11,7 @@ export class AddressService {
     @InjectModel(address.name) private addressModel: Model<addressDocument>,
   ) {}
 
-  async createAddress(
+  async create(
     createAddressDto: CreateAddressDto,
     userId: string,
   ): Promise<addressDocument> {
@@ -22,12 +22,13 @@ export class AddressService {
     return existingAddress.save();
   }
 
-  async updateAddress(
+  async update(
     id: string,
+    userId: string,
     updateAddressDto: UpdateAddressDto,
   ): Promise<addressDocument> {
-    const existingAddress = await this.addressModel.findByIdAndUpdate(
-      id,
+    const existingAddress = await this.addressModel.findOneAndUpdate(
+      { _id: id, userId },
       updateAddressDto,
       {
         new: true,
@@ -35,7 +36,7 @@ export class AddressService {
     );
 
     if (!existingAddress)
-      throw new NotFoundException(`Address #${id} Not Found`);
+      throw new NotFoundException(`Address #${id} Not Found in your Account `);
     return existingAddress;
   }
 
@@ -45,20 +46,26 @@ export class AddressService {
     return existingAddresses;
   }
 
-  async get(id: string): Promise<addressDocument> {
-    const existingAddress = await this.addressModel.findById(id);
+  async get(id: string, userId: string): Promise<addressDocument> {
+    const existingAddress = await this.addressModel.findOne({
+      _id: id,
+      userId,
+    });
 
     if (!existingAddress)
-      throw new NotFoundException(`Address #${id} Not Found`);
+      throw new NotFoundException(`Address #${id} Not Found in your Account`);
 
     return existingAddress;
   }
 
-  async delete(id: string): Promise<addressDocument> {
-    const existingAddress = await this.addressModel.findByIdAndDelete(id);
+  async delete(id: string, userId: string): Promise<addressDocument> {
+    const existingAddress = await this.addressModel.findOneAndDelete({
+      _id: id,
+      userId,
+    });
 
     if (!existingAddress)
-      throw new NotFoundException(`Address #${id} Not Found`);
+      throw new NotFoundException(`Address #${id} Not Found in your Account`);
 
     return existingAddress;
   }
