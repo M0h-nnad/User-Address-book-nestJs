@@ -1,6 +1,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import * as argon from 'argon2';
+
 @Schema({
   id: true,
   virtuals: true,
@@ -38,6 +39,22 @@ userSchema.pre('save', async function (next) {
     const password = await argon.hash(user.password);
 
     user.password = password;
+    next();
+  } catch (e) {
+    next(e);
+  }
+});
+
+userSchema.pre('findOneAndUpdate', async function (next) {
+  const query = this as any;
+  const update = query.getUpdate();
+
+  try {
+    if (update.password) {
+      const password = await argon.hash(update.password);
+      update.password = password;
+      query.setUpdate(update);
+    }
     next();
   } catch (e) {
     next(e);

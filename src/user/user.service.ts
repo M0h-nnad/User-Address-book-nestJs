@@ -30,11 +30,10 @@ export class UserService {
   }
 
   async delete(id): Promise<User> {
-    const existingUser = await this.userModal.findByIdAndDelete(id);
+    const existingUser = await this.userModal.findOneAndDelete({ _id: id });
 
     if (!existingUser) throw new NotFoundException(`User #${id} Not Found`);
     this.addressService.deleteAddressesRelatedToUser(id);
-
     return existingUser;
   }
 
