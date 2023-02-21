@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt/dist';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AddressModule } from 'src/address/address.module';
 import { User, userSchema } from 'src/schema';
@@ -8,6 +9,9 @@ import { UserService } from './user.service';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: userSchema }]),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+    }),
     AddressModule,
   ],
   providers: [UserService],
